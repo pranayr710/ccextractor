@@ -1913,8 +1913,8 @@ int dvbsub_decode(struct encoder_ctx *enc_ctx, struct lib_cc_decode *dec_ctx, co
 
 		if (p_end - p < segment_length)
 		{
-			mprint("dvbsub_decode: incomplete, broken or empty packet, remaining bytes=%d, segment_length=%d\n",
-			       p_end - p, segment_length);
+			mprint("dvbsub_decode: incomplete, broken or empty packet, remaining bytes=%lld, segment_length=%d\n",
+			       (long long)(p_end - p), segment_length);
 			return -1;
 		}
 
@@ -1922,7 +1922,7 @@ int dvbsub_decode(struct encoder_ctx *enc_ctx, struct lib_cc_decode *dec_ctx, co
 		{
 			// debug traces
 			dbg_print(CCX_DMT_DVB, "DVBSUB - PTS: %" PRId64 ", ", dec_ctx->timing->current_pts);
-			dbg_print(CCX_DMT_DVB, "FTS: %d, ", dec_ctx->timing->fts_now);
+			dbg_print(CCX_DMT_DVB, "FTS: %" PRId64 ", ", dec_ctx->timing->fts_now);
 			dbg_print(CCX_DMT_DVB, "SEGMENT TYPE: %2X, ", segment_type);
 
 			switch (segment_type)

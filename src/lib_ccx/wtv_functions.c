@@ -322,7 +322,7 @@ int read_header(struct ccx_demuxer *ctx, struct wtv_chunked_buffer *cb)
 			memcpy(&len, parsebuf + 16, 2);
 			dbg_print(CCX_DMT_PARSE, "len: %x\n", len);
 			memcpy(&file_length, parsebuf + 24, 8);
-			dbg_print(CCX_DMT_PARSE, "file_length: %x\n", file_length);
+			dbg_print(CCX_DMT_PARSE, "file_length: %" PRIx64 "\n", file_length);
 			if (len > 1024)
 			{
 				mprint("Too large for buffer!\n");
@@ -546,7 +546,7 @@ LLONG get_data(struct lib_ccx_ctx *ctx, struct wtv_chunked_buffer *cb, struct de
 				return CCX_EOF;
 
 			memcpy(&time, cb->buffer + 0x8, 8); // Read the timestamp
-			dbg_print(CCX_DMT_PARSE, "TIME: %ld\n", time);
+			dbg_print(CCX_DMT_PARSE, "TIME: %" PRId64 "\n", time);
 			if (time != -1 && time != WTV_CC_TIMESTAMP_MAGIC)
 			{ // Ignore -1 timestamps
 				LLONG pes_time = time_to_pes_time(time);

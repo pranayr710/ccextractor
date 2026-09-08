@@ -222,7 +222,7 @@ void write_webvtt_header(struct encoder_ctx *context)
 
 		// If the user has enabled X-TIMESTAMP-MAP
 		// LOCAL must come before MPEGTS for HLS compatibility (issue #1743)
-		snprintf(header_string, sizeof(header_string), "X-TIMESTAMP-MAP=LOCAL:%02u:%02u:%02u.%03u,MPEGTS:%ld%s",
+		snprintf(header_string, sizeof(header_string), "X-TIMESTAMP-MAP=LOCAL:%02u:%02u:%02u.%03u,MPEGTS:%" PRId64 "%s",
 			 h1, m1, s1, ms1, context->timing->sync_pts2fts_pts,
 			 ccx_options.enc_cfg.line_terminator_lf ? "\n\n" : "\r\n\r\n");
 

@@ -278,7 +278,7 @@ int ps_get_more_data(struct lib_ccx_ctx *ctx, struct demuxer_data **ppdata)
 
 				if (want != peslen)
 				{
-					mprint("General LOOP: want(%d) != peslen(%d) \n", want, peslen);
+					mprint("General LOOP: want(%d) != peslen(%zu) \n", want, peslen);
 					continue;
 				}
 				if (want == 0) // Found package with header but without payload
@@ -1673,11 +1673,11 @@ int general_loop(struct lib_ccx_ctx *ctx)
 		if (dec_ctx->has_ccdata_buffered)
 			process_hdcc(enc_ctx, dec_ctx, &dec_ctx->dec_sub);
 
-		mprint("\nNumber of NAL_type_7: %ld\n", dec_ctx->avc_ctx->num_nal_unit_type_7);
-		mprint("Number of VCL_HRD: %ld\n", dec_ctx->avc_ctx->num_vcl_hrd);
-		mprint("Number of NAL HRD: %ld\n", dec_ctx->avc_ctx->num_nal_hrd);
-		mprint("Number of jump-in-frames: %ld\n", dec_ctx->avc_ctx->num_jump_in_frames);
-		mprint("Number of num_unexpected_sei_length: %ld", dec_ctx->avc_ctx->num_unexpected_sei_length);
+		mprint("\nNumber of NAL_type_7: %" PRId64 "\n", dec_ctx->avc_ctx->num_nal_unit_type_7);
+		mprint("Number of VCL_HRD: %" PRId64 "\n", dec_ctx->avc_ctx->num_vcl_hrd);
+		mprint("Number of NAL HRD: %" PRId64 "\n", dec_ctx->avc_ctx->num_nal_hrd);
+		mprint("Number of jump-in-frames: %" PRId64 "\n", dec_ctx->avc_ctx->num_jump_in_frames);
+		mprint("Number of num_unexpected_sei_length: %" PRId64, dec_ctx->avc_ctx->num_unexpected_sei_length);
 		free(dec_ctx->xds_ctx);
 	}
 

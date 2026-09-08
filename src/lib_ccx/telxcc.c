@@ -590,7 +590,7 @@ int fuzzy_memcmp(const char *c1, const char *c2, const uint64_t *ucs2_buf1, unsi
 	// For the second string, only take the first chars (up to the first string length, that's upto).
 	l = (size_t)levenshtein_dist(ucs2_buf1, ucs2_buf2, ucs2_buf1_len, upto);
 	int res = (l > max);
-	dbg_print(CCX_DMT_LEVENSHTEIN, "\rLEV | %s | %s | Max: %d | Calc: %d | Match: %d\n", c1, c2, max, l, !res);
+	dbg_print(CCX_DMT_LEVENSHTEIN, "\rLEV | %s | %s | Max: %zu | Calc: %zu | Match: %d\n", c1, c2, max, l, !res);
 	return res;
 }
 
@@ -1482,7 +1482,7 @@ int tlt_process_pes_packet(struct lib_cc_decode *dec_ctx, uint8_t *buffer, uint1
 		pes_crc_flag = (uint8_t)(buffer[7] << 6) >> 7;
 		pes_ext_flag = (uint8_t)(buffer[7] << 7) >> 7;
 
-		printf("Packet start code prefix: %04lx # ", pes_prefix);
+		printf("Packet start code prefix: %04" PRIx64 " # ", pes_prefix);
 		printf("Stream ID: %04x # ", pes_stream_id);
 		printf("Packet length: %d ", pes_packet_length);
 		printf("PESSC: 0x%x ", pes_scrambling_control);
