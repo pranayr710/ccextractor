@@ -502,7 +502,11 @@ static int get_text(ISDBSubContext *ctx, unsigned char *buffer, int len)
 			{
 				sb_text = allocate_text_node(ls);
 				list_add_tail(&sb_text->list, &ctx->buffered_text);
-				reserve_buf(sb_text, text->used);
+				/* reserve_buf() reserves len bytes on top of used and
+				   the node is fresh, so ask for the terminator too:
+				   it rounds the allocation up to 128 bytes, which hid
+				   this until text->used landed on a multiple of 128. */
+				reserve_buf(sb_text, text->used + 1);
 				memcpy(sb_text->buf, text->buf, text->used);
 				sb_text->buf[text->used] = '\0';
 				sb_text->used = text->used;
@@ -533,7 +537,8 @@ static int get_text(ISDBSubContext *ctx, unsigned char *buffer, int len)
 			{
 				sb_text = allocate_text_node(ls);
 				list_add_tail(&sb_text->list, &ctx->buffered_text);
-				reserve_buf(sb_text, text->used);
+				/* Same terminator as above. */
+				reserve_buf(sb_text, text->used + 1);
 				memcpy(sb_text->buf, text->buf, text->used);
 				sb_text->buf[text->used] = '\0';
 				sb_text->used = text->used;
